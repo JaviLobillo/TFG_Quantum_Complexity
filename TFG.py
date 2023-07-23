@@ -140,11 +140,11 @@ def qpe_amod15(a, BE):
     #print(str(time_run) + ", " + str(time_without_run) +", " + str(ret_time))
     return (phase, ret_time)
 
-def iteraccion(BE):
+def iteration(BE):
     start0 = time.time()
-    global INTENTO
-    INTENTO += 1
-    print("\nINTENTO:" + str(INTENTO))
+    global ITERATION
+    ITERATION += 1
+    print("\ITERATION:" + str(ITERATION))
     TIME_qpe = 0.0
     FACTOR_FOUND = False
     ATTEMPT = 0
@@ -179,13 +179,13 @@ def iteraccion(BE):
     return TIME, ATTEMPT
 
 
-def media_n_iteracciones(n, BE):
+def avg_n_iterations(n, BE):
     attempts = [0,0,0,0,0]
     TIME = 0.0
     grossTIME = 0.0
     for i in range(n):
         start = time.time()
-        itTIME, att = iteraccion(BE)
+        itTIME, att = iteration(BE)
         attempts[att-1] += 1
         #print("Attempts: " + str(attempts))
         TIME += itTIME
@@ -197,10 +197,10 @@ def media_n_iteracciones(n, BE):
 
 
 
-INTENTO = 0
+ITERATION = 0
 n = 100     
 BE = 'simulator_statevector'
-avg_statevector, gross_avg_statevector, attempts_statevector = media_n_iteracciones(n, BE)
+avg_statevector, gross_avg_statevector, attempts_statevector = avg_n_iterations(n, BE)
 f = open("statevector.txt", "w")
 f.write("Tries: " + str(n) + "\n")
 f.write("avg_statevector: " + str(avg_statevector) + "\n")
@@ -209,7 +209,7 @@ f.write("attempts_statevector: " + str(attempts_statevector) + "\n")
 f.close()
 
 BE = 'simulator_mps'
-avg_mps, gross_avg_mps, attempts_mps = media_n_iteracciones(n, BE)
+avg_mps, gross_avg_mps, attempts_mps = avg_n_iterations(n, BE)
 f = open("mps.txt", "w")
 f.write("Tries: " + str(n) + "\n")
 f.write("avg_mps: " + str(avg_mps) + "\n")
@@ -218,7 +218,7 @@ f.write("attempts_mps: " + str(attempts_mps) + "\n")
 f.close()
 
 BE = 'ibmq_qasm_simulator'
-avg_qasm_simulator, gross_avg_qasm_simulator, attempts_qasm = media_n_iteracciones(n, BE)
+avg_qasm_simulator, gross_avg_qasm_simulator, attempts_qasm = avg_n_iterations(n, BE)
 f = open("qasm_simulator.txt", "w")
 f.write("Tries: " + str(n) + "\n")
 f.write("avg_qasm_simulator: " + str(avg_qasm_simulator) + "\n")
