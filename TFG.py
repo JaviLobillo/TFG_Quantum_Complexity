@@ -144,7 +144,7 @@ def iteration(BE):
     start0 = time.time()
     global ITERATION
     ITERATION += 1
-    print("\ITERATION:" + str(ITERATION))
+    print("\nITERATION:" + str(ITERATION))
     TIME_qpe = 0.0
     FACTOR_FOUND = False
     ATTEMPT = 0
