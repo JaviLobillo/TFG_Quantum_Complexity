@@ -176,55 +176,65 @@ def iteraccion(BE):
         TIME += TIME_qpe + stop11 - start11 + stop2 - start2
         #print("TIME: " + str(TIME))
     #print("TIME: " + str(TIME))
-    return TIME
+    return TIME, ATTEMPT
 
 
 def media_n_iteracciones(n, BE):
+    attempts = [0,0,0,0,0]
     TIME = 0.0
     grossTIME = 0.0
     for i in range(n):
         start = time.time()
-        TIME += iteraccion(BE)
+        itTIME, att = iteraccion(BE)
+        attempts[att-1] += 1
+        #print("Attempts: " + str(attempts))
+        TIME += itTIME
         #print("TIME: " + str(TIME))
         stop = time.time()
         grossTIME += stop - start
         #print("brutetime: " + str(brutetime))
-    return TIME/n, grossTIME/n
+    return TIME/n, grossTIME/n, attempts
 
 
 
 INTENTO = 0
 n = 100     
 BE = 'simulator_statevector'
-avg_statevector, gross_avg_statevector = media_n_iteracciones(n, BE)
+avg_statevector, gross_avg_statevector, attempts_statevector = media_n_iteracciones(n, BE)
 f = open("statevector.txt", "w")
 f.write("Tries: " + str(n) + "\n")
 f.write("avg_statevector: " + str(avg_statevector) + "\n")
 f.write("gross_avg_statevector: " + str(gross_avg_statevector) + "\n")
+f.write("attempts_statevector: " + str(attempts_statevector) + "\n")
 f.close()
 
 BE = 'simulator_mps'
-avg_mps, gross_avg_mps = media_n_iteracciones(n, BE)
+avg_mps, gross_avg_mps, attempts_mps = media_n_iteracciones(n, BE)
 f = open("mps.txt", "w")
 f.write("Tries: " + str(n) + "\n")
 f.write("avg_mps: " + str(avg_mps) + "\n")
 f.write("gross_avg_mps: " + str(gross_avg_mps) + "\n")
+f.write("attempts_mps: " + str(attempts_mps) + "\n")
 f.close()
 
 BE = 'ibmq_qasm_simulator'
-avg_qasm_simulator, gross_avg_qasm_simulator = media_n_iteracciones(n, BE)
+avg_qasm_simulator, gross_avg_qasm_simulator, attempts_qasm = media_n_iteracciones(n, BE)
 f = open("qasm_simulator.txt", "w")
 f.write("Tries: " + str(n) + "\n")
 f.write("avg_qasm_simulator: " + str(avg_qasm_simulator) + "\n")
 f.write("gross_avg_qasm_simulator: " + str(gross_avg_qasm_simulator) + "\n")
+f.write("attempts_qasm: " + str(attempts_qasm) + "\n")
 f.close()
 
 
 
 print("Average time for 'simulator_statevector': " + str(avg_statevector) + " seconds")
 print("Average gross time for 'simulator_statevector': " + str(gross_avg_statevector) + " seconds")
+print("Attempts: " + str(attempts_statevector))
 print("Average time for 'simulator_mps': " + str(avg_mps) + " seconds")
 print("Average gross time for 'simulator_mps': " + str(gross_avg_mps) + " seconds")
+print("Attempts: " + str(attempts_mps))
 print("Average time for 'ibmq_qasm_simulator': " + str(avg_qasm_simulator) + " seconds")
 print("Average gross time for 'ibmq_qasm_simulator': " + str(gross_avg_qasm_simulator) + " seconds")
+print("Attempts: " + str(attempts_qasm))
 
