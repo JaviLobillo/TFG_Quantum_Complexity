@@ -63,87 +63,15 @@ def bounded_circuit(n, m, BE, l):
     plot = plot_histogram(counts, figsize=(l, 11))
     plot.savefig('res_bounded_' + BE + '_q=' + str(n) + '_b=' + str(m) + '.png')
 
-generic_circuit(3, 'simulator_statevector', 20)
-generic_circuit(3, 'ibm_lagos', 20)
-print(3)
+def execute(BE):
+    print(BE)
+    for i in range(3, 8):
+        generic_circuit(i, BE, 20 + (i-3)*3)
+        print(i)
+        for j in range(1, i-1):
+            bounded_circuit(i, j, BE, 20 + (i-3)*3)
+            print(i, j)
+        print(str(i) + " qubits done")
+    print(BE + " done")
 
-bounded_circuit(3, 1, 'simulator_statevector', 20)
-bounded_circuit(3, 1, 'ibm_lagos', 20)
-print(3, 1)
-print("3 qubits done")
-
-generic_circuit(4, 'simulator_statevector', 23)
-generic_circuit(4, 'ibm_lagos', 23)
-print(4)
-
-bounded_circuit(4, 1, 'simulator_statevector', 23)
-bounded_circuit(4, 1, 'ibm_lagos', 23)
-print(4, 1)
-
-bounded_circuit(4, 2, 'simulator_statevector', 23)
-bounded_circuit(4, 2, 'ibm_lagos', 23)
-print(4, 2)
-print("4 qubits done")
-
-generic_circuit(5, 'simulator_statevector', 25)
-generic_circuit(5, 'ibm_lagos', 25)
-print(5)
-
-bounded_circuit(5, 1, 'simulator_statevector', 25)
-bounded_circuit(5, 1, 'ibm_lagos', 25)
-print(5, 1)
-
-bounded_circuit(5, 2, 'simulator_statevector', 25)
-bounded_circuit(5, 2, 'ibm_lagos', 25)
-print(5, 2)
-
-bounded_circuit(5, 3, 'simulator_statevector', 25)
-bounded_circuit(5, 3, 'ibm_lagos', 25)
-print(5, 3)
-print("5 qubits done")
-
-generic_circuit(6, 'simulator_statevector', 28)
-generic_circuit(6, 'ibm_lagos', 28)
-print(6)
-
-bounded_circuit(6, 1, 'simulator_statevector', 28)
-bounded_circuit(6, 1, 'ibm_lagos', 28)
-print(6, 1)
-
-bounded_circuit(6, 2, 'simulator_statevector', 28)
-bounded_circuit(6, 2, 'ibm_lagos', 28)
-print(6, 2)
-
-bounded_circuit(6, 3, 'simulator_statevector', 28)
-bounded_circuit(6, 3, 'ibm_lagos', 28)
-print(6, 3)
-
-bounded_circuit(6, 4, 'simulator_statevector', 28)
-bounded_circuit(6, 4, 'ibm_lagos', 28)
-print(6, 4)
-print("6 qubits done")
-
-generic_circuit(7, 'simulator_statevector', 30)
-generic_circuit(7, 'ibm_lagos', 30)
-print(7)
-
-bounded_circuit(7, 1, 'simulator_statevector', 30)
-bounded_circuit(7, 1, 'ibm_lagos', 30)
-print(7, 1)
-
-bounded_circuit(7, 2, 'simulator_statevector', 30)
-bounded_circuit(7, 2, 'ibm_lagos', 30)
-print(7, 2)
-
-bounded_circuit(7, 3, 'simulator_statevector', 30)
-bounded_circuit(7, 3, 'ibm_lagos', 30)
-print(7, 3)
-
-bounded_circuit(7, 4, 'simulator_statevector', 30)
-bounded_circuit(7, 4, 'ibm_lagos', 30)
-print(7, 4)
-
-bounded_circuit(7, 5, 'simulator_statevector', 30)
-bounded_circuit(7, 5, 'ibm_lagos', 30)
-print(7, 5)
-print("7 qubits done")
+execute('ibmq_jakarta')
